@@ -13,8 +13,8 @@
     //return this.Game
   }
 
-  Game.DIM_X = 700;
-  Game.DIM_Y = 700;
+  Game.DIM_X = 500;
+  Game.DIM_Y = 500;
   Game.FPS = 50;
 
   // Game.DIM_X = function(){
@@ -58,7 +58,7 @@
     this.move();
     this.draw();
     if(key.isPressed("M")) alert('shift is pressed, OMGZ!');
-    this.checkCollisions();
+    //this.checkCollisions();
     //this.addAsteroids(this.numAsteroids);
   }
 
@@ -95,12 +95,9 @@
     var vector = this._directionKey()
     if(!(vector === [0,0])){
       var vector_speed = Math.sqrt(Math.pow(vector[0],2) + Math.pow(vector[1],2))
-      vector = [vector[0] / vector_speed,vector[1]/ vector_speed]
-      console.log(vector)
+      vector[0] = vector[0]/vector_speed
+      vector[1] = vector[1]/vector_speed
       this.ship.power(vector)
-    }
-    if(key.isPressed("Space")){
-      this.ship.power([1,0]);
     }
     if(key.isPressed("end")){
       this.pause();
@@ -111,13 +108,13 @@
   Game.prototype._directionKey = function(){
     dir = [0,0]
     if(key.isPressed("W") || key.isPressed("Up")){
-      dir[1] += .5;
+      dir[1] -= .5;
     }
     if(key.isPressed("A") || key.isPressed("Left")){
-      dir[0] += -.5;
+      dir[0] -= .5;
     }
     if(key.isPressed("S") || key.isPressed("Right")){
-      dir[1] += -.5;
+      dir[1] += .5;
     }
     if(key.isPressed("D") || key.isPressed("Down")){
       dir[0] += .5;
