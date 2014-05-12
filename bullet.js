@@ -10,19 +10,18 @@
 
 
   var Bullet = Asteroids.Bullet = function (pos, vel, radius, color) {
-    Asteroids.MovingObject.call(this, pos, vel, radius, color)
+    Asteroids.MovingObject.call(this, pos, vel, radius, color);
+    this.decay = 0;
   };
 
   Bullet.inherits(Asteroids.MovingObject);
 
-  Bullet.prototype = Object.create(Asteroids.MovingObject.prototype);
-
-  Bullet.RADIUS = 5;
+  Bullet.RADIUS = 3;
   Bullet.COLOR = 'orange';
 
   Bullet.placeBullet = function(magX, magY, x, y){
   	var pos = [x,y]
-    var vel = [magX * 5, magY * 5]
+    var vel = [magX * 10, magY * 10]
     // console.log(pos);
     console.log(vel);
     var newBullet = new Bullet(pos, vel, Bullet.RADIUS, Bullet.COLOR);

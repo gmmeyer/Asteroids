@@ -40,8 +40,16 @@
 
   Game.prototype.move = function(){
     this.ship.move(Game.DIM_X,Game.DIM_Y);
-    for(i=0; i < this.asteroids.length; i++){
+    for(var i=0; i < this.asteroids.length; i++){
       this.asteroids[i].move(Game.DIM_X,Game.DIM_Y);
+    };
+    for(var i=0; i<this.bullets.length; i++){
+      this.bullets[i].move(Game.DIM_X, Game.DIM_Y);
+      this.bullets[i].decay += 1
+      if(this.bullets[i].decay === 25) {
+        console.log('hi')
+        this.bullets.splice(i, 1)
+      }
     }
   }
 
@@ -71,10 +79,20 @@
   }
 
   Game.prototype.checkCollisions = function(){
-    for(i=0; i<this.asteroids.length; i++){
+    for(var i=0; i<this.asteroids.length; i++){
       if(this.ship.isCollidedWith(this.asteroids[i])){
         this.ship = Asteroids.Ship.placeShip(Math.random() * Game.DIM_X, Math.random() * Game.DIM_Y);
-      }
+        this.asteroids.splice(i, 1);
+        this.asteroids.push( Asteroids.Asteroid.randomAsteroid([0,Game.DIM_X], [0, Game.DIM_Y]) );
+      };
+
+      for(j=0; j < this.bullets.length; j++){
+        if(this.asteroids[i].isCollidedWith(this.bullets[j])){
+          this.asteroids.splice(i, 1);
+          this.asteroids.push( Asteroids.Asteroid.randomAsteroid([0,Game.DIM_X], [0, Game.DIM_Y]) );
+          this.bullets.splice(j, 1);
+        };
+      };
     }
   }
 
@@ -94,7 +112,6 @@
       switch (e.which) {
         // key code for left arrow
         case 32:
-          console.log(e)
           e.preventDefault()
       }
     });
