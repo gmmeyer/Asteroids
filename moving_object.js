@@ -1,9 +1,6 @@
 (function (root) {
   var Asteroids = root.Asteroids = (root.Asteroids || {});
 
-  // Asteroid = require('./asteroid.js')
-  // Game = require('./game.js')
-
   var MovingObject = Asteroids.MovingObject = function(pos,vel,radius,color){
     //pos[x,y]
     //vel[delta_x/t, delta_y/t]
@@ -29,13 +26,8 @@
     var newPos = [,]
     newPos[0] = this.pos[0] + this.vel[0];
     newPos[1] = this.pos[1] + this.vel[1];
-    if (newPos[0] === NaN || newPos[1] === NaN){
-      console.log('wut')
-    }
     newPos[0] = _offScreen(newPos[0], 0, x_max)
     newPos[1] = _offScreen(newPos[1], 0, y_max)
-    //console.log(newPos)
-
     this.pos = newPos
   }
 

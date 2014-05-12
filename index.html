@@ -2,10 +2,22 @@
 <html>
 <head>
   <title> Asteroids! </title>
+  <style>
+    body {
+      background: black;
+    }
+    canvas {
+      display: block;
+      margin: auto auto;
+      margin-top: 20px;
+      border: 1px dashed white;
+    }
+  </style>
   <script src="./keymaster.js"></script>
   <script src="./moving_object.js"></script>
   <script src="./ship.js"></script>
   <script src="./asteroid.js"></script>
+  <script src="./bullet.js"></script>
   <script src="./game.js"></script>
 </head>
 <body>
@@ -15,7 +27,6 @@
   <script>
     var canvas = document.getElementsByTagName('Canvas')[0];
     var my_game = new Asteroids.Game(canvas, 20)
-    //my_game.bindKeyHandlers(my_game)
     my_game.start();
   </script>
 </body>

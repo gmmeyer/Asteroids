@@ -1,29 +1,19 @@
 (function(root){
   var Asteroids = root.Asteroids = (root.Asteroids || {});
 
-  // Asteroid = require('./asteroid.js')
-  // MovingObject = require('./moving_object.js')
-
   var Game = Asteroids.Game = function(ctx, numAsteroids){
     this.ctx = ctx;
     this.asteroids = [];
     this.numAsteroids = numAsteroids;
     this.intervalID = false
     this.ship = Asteroids.Ship.placeShip(Game.DIM_X, Game.DIM_Y);
+    this.bullets = [];
     //return this.Game
   }
 
   Game.DIM_X = 500;
   Game.DIM_Y = 500;
   Game.FPS = 50;
-
-  // Game.DIM_X = function(){
-  //   return 500;
-  // }
-  //
-  // Game.DIM_Y = function(){
-  //   return 500;
-  // }
 
   Game.prototype.addAsteroids = function(numAsteroids){
     for(i = 0; i < numAsteroids; i++){
@@ -43,6 +33,9 @@
       this.asteroids[i].draw(ctx);
     }
     this.ship.draw(ctx);
+    for(i=0; i<this.bullets.length; i++){
+      this.bullets[i].draw(ctx);
+    }
   }
 
   Game.prototype.move = function(){
@@ -54,12 +47,9 @@
 
   Game.prototype.step = function(){
     this.bindKeyHandlers();
-    //console.log(this.ship.vel)
     this.move();
     this.draw();
-    if(key.isPressed("M")) alert('shift is pressed, OMGZ!');
-    //this.checkCollisions();
-    //this.addAsteroids(this.numAsteroids);
+    this.checkCollisions();
   }
 
   Game.prototype.pause = function(){
@@ -83,24 +73,18 @@
   Game.prototype.checkCollisions = function(){
     for(i=0; i<this.asteroids.length; i++){
       if(this.ship.isCollidedWith(this.asteroids[i])){
-        alert ("GAME OVER. LUSER LOSES.");
+        this.ship = Asteroids.Ship.placeShip(Math.random() * Game.DIM_X, Math.random() * Game.DIM_Y);
       }
     }
   }
 
   Game.prototype.bindKeyHandlers = function(){
-    //if()
-  //   key('W',game_name.ship.power([0,1]))
-    //console.log(this._directionKey)
     var vector = this._directionKey()
     if(!(vector === [0,0])){
       var vector_speed = Math.sqrt(Math.pow(vector[0],2) + Math.pow(vector[1],2))
       vector[0] = vector[0]/vector_speed
       vector[1] = vector[1]/vector_speed
       this.ship.power(vector)
-    }
-    if(key.isPressed("end")){
-      this.pause();
     }
 
   }
@@ -118,6 +102,12 @@
     }
     if(key.isPressed("D") || key.isPressed("Down")){
       dir[0] += .5;
+    }
+    if(key.isPressed('space')) {
+      this.bullets.push(this.ship.fireBullet());
+      if(this.bullets.length > 10){
+        this.bullets.shift()
+      }
     }
     //console.log(dir)
     return dir
