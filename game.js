@@ -90,6 +90,14 @@
   }
 
   Game.prototype._directionKey = function(){
+    $(document.body).on('keydown', function(e) {
+      switch (e.which) {
+        // key code for left arrow
+        case 32:
+          console.log(e)
+          e.preventDefault()
+      }
+    });
     dir = [0,0]
     if(key.isPressed("W") || key.isPressed("Up")){
       dir[1] -= .5;
@@ -104,6 +112,7 @@
       dir[0] += .5;
     }
     if(key.isPressed('space')) {
+      // .stopPropagation();
       this.bullets.push(this.ship.fireBullet());
       if(this.bullets.length > 10){
         this.bullets.shift()
