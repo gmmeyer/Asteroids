@@ -22,10 +22,7 @@
   Bullet.placeBullet = function(magX, magY, x, y){
   	var pos = [x,y]
     var vel = [magX * 10, magY * 10]
-    // console.log(pos);
-    console.log(vel);
     var newBullet = new Bullet(pos, vel, Bullet.RADIUS, Bullet.COLOR);
-    // console.log(newBullet);
     return newBullet;
   };
 

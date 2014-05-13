@@ -8,7 +8,6 @@
     this.intervalID = false
     this.ship = Asteroids.Ship.placeShip(Game.DIM_X, Game.DIM_Y);
     this.bullets = [];
-    //return this.Game
   }
 
   Game.DIM_X = 500;
@@ -26,9 +25,6 @@
     var ctx = this.ctx.getContext("2d");
     ctx.fillStyle = 'black';
     ctx.fillRect(0,0,Game.DIM_X,Game.DIM_Y);
-    // ctx.fillRect();
-    // ctx.strokeStyle = 'black'
-    // ctx.fill()
     for(i=0; i<this.asteroids.length; i++){
       this.asteroids[i].draw(ctx);
     }
@@ -47,7 +43,6 @@
       this.bullets[i].move(Game.DIM_X, Game.DIM_Y);
       this.bullets[i].decay += 1
       if(this.bullets[i].decay === 25) {
-        console.log('hi')
         this.bullets.splice(i, 1)
       }
     }
@@ -110,22 +105,29 @@
   Game.prototype._directionKey = function(){
     $(document.body).on('keydown', function(e) {
       switch (e.which) {
-        // key code for left arrow
         case 32:
-          e.preventDefault()
+          e.preventDefault();
+        case 37:
+          e.preventDefault();
+        case 38:
+          e.preventDefault();
+        case 39:
+          e.preventDefault();
+        case 40:
+          e.preventDefault();
       }
     });
     dir = [0,0]
-    if(key.isPressed("W") || key.isPressed("Up")){
+    if(key.isPressed("W") || key.isPressed("up")){
       dir[1] -= .5;
     }
-    if(key.isPressed("A") || key.isPressed("Left")){
+    if(key.isPressed("A") || key.isPressed("left")){
       dir[0] -= .5;
     }
-    if(key.isPressed("S") || key.isPressed("Right")){
+    if(key.isPressed("S") || key.isPressed("down")){
       dir[1] += .5;
     }
-    if(key.isPressed("D") || key.isPressed("Down")){
+    if(key.isPressed("D") || key.isPressed("right")){
       dir[0] += .5;
     }
     if(key.isPressed('space')) {

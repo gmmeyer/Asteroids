@@ -28,12 +28,11 @@
 
 
   //fire bullet
-  Ship.prototype.fireBullet = function() {
+  Ship.prototype.fireBullet = function(bullets) {
     var bulletVector = [this.vel[0] / this.shipSpeed, this.vel[1] / this.shipSpeed]
     if(this.vel === [0,0]){
       return;
-    }
-    else{
+    } else {
       return Asteroids.Bullet.placeBullet(bulletVector[0],bulletVector[1],this.pos[0],this.pos[1])
     }
   }
